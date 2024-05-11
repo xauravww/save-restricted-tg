@@ -1,10 +1,10 @@
 import os
-from .. import bot as gagan
+from .. import bot as saurav
 from telethon import events, Button
 from telethon.tl.types import InputMediaPhoto
 
 S = "/start"
-START_PIC = "https://graph.org/file/da97ceca70e55983b4891.png"
+START_PIC = "https://res.cloudinary.com/drvntsbpo/image/upload/v1706031295/Golgappa-4_y3qpfs.jpg"
 TEXT = "Send me the Link of any message of Restricted Channels to Clone it here.\nFor private channel's messages, send the Invite Link first.\n\n👉🏻Execute /batch for bulk process upto 10K files range."
 
 def is_set_button(data):
@@ -13,13 +13,13 @@ def is_set_button(data):
 def is_rem_button(data):
     return data == "rem"
 
-@gagan.on(events.CallbackQuery(pattern=b"set"))
+@saurav.on(events.CallbackQuery(pattern=b"set"))
 async def sett(event):    
-    gagan = event.client
+    saurav = event.client
     button = await event.get_message()
     msg = await button.get_reply_message()
     await event.delete()
-    async with gagan.conversation(event.chat_id) as conv: 
+    async with saurav.conversation(event.chat_id) as conv: 
         xx = await conv.send_message("Send me any image for thumbnail as a `reply` to this message.")
         x = await conv.get_reply()
         if not x.media:
@@ -36,9 +36,9 @@ async def sett(event):
         os.rename(path, f'./{event.sender_id}.jpg')
         await t.edit("Temporary thumbnail saved!")
 
-@gagan.on(events.CallbackQuery(pattern=b"rem"))
+@saurav.on(events.CallbackQuery(pattern=b"rem"))
 async def remt(event):  
-    gagan = event.client            
+    saurav = event.client            
     await event.edit('Trying... to save Bamby ... Wait')
     try:
         os.remove(f'{event.sender_id}.jpg')
@@ -46,17 +46,17 @@ async def remt(event):
     except Exception:
         await event.edit("No thumbnail saved.")                        
 
-@gagan.on(events.NewMessage(pattern=f"^{S}"))
+@saurav.on(events.NewMessage(pattern=f"^{S}"))
 async def start_command(event):
     # Creating inline keyboard with buttons
     buttons = [
         [Button.inline("SET THUMB", data="set"),
          Button.inline("REM THUMB", data="rem")],
-        [Button.url("Join Channel", url="https://telegram.dog/dev_gagan")]
+        [Button.url("Join Channel", url="https://telegram.dog/aboutsaurav")]
     ]
 
     # Sending photo with caption and buttons
-    await gagan.send_file(
+    await saurav.send_file(
         event.chat_id,
         file=START_PIC,
         caption=TEXT,

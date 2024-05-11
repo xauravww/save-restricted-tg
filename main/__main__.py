@@ -12,7 +12,7 @@ logging.getLogger("telethon").setLevel(logging.WARNING)
 botStartTime = time.time()
 
 print("Successfully deployed!")
-print("Bot Deployed : Team SPY")
+print("Bot Deployed : Saurav")
 
 # Define a function to run the server URL hitting in a separate thread
 def run_server_url():

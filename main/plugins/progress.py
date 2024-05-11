@@ -38,20 +38,21 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        progress = "**{0}{1}** \n".format(
-            ''.join(                
-                    FINISHED_PROGRESS_STR
-                    for _ in range(math.floor(percentage / 10))                
-            ),
-            ''.join(                
-                    UN_FINISHED_PROGRESS_STR
-                    for _ in range(10 - math.floor(percentage / 10))               
-            ),
-        )  
+        # Determine appropriate units for size display
+        current_size = humanbytes(current)
+        total_size = humanbytes(total)
+
+        # ASCII art progress bar
+        progress_bar_length = 20
+        completed_blocks = int(percentage / (100 / progress_bar_length))
+        remaining_blocks = progress_bar_length - completed_blocks
+        progress_bar = "█" * completed_blocks + "░" * remaining_blocks
+
+        progress = f"**Progress:**\n```\n{progress_bar}\n```"
 
         tmp = progress + "**\n__Completed__:** {0} of {1}\n**__Speed__**: {2}/s\n**__Time__**: {3}\n".format(
-            humanbytes(current),
-            humanbytes(total),
+            current_size,
+            total_size,
             humanbytes(speed),
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
@@ -65,5 +66,4 @@ async def progress_for_pyrogram(
                     await message.edit_caption(caption=f"{ud_type}\n {tmp}")
         except:
             pass
-
 

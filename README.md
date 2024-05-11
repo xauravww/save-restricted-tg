@@ -2,12 +2,12 @@
   <b>Save restricted Content Bot by <a href="https://devgagan.in"> devgagan.in </a>
 </h1> 
 
-Contact: [Telegram](https://t.me/dev_gagan)
+Contact: [Telegram](https://t.me/aatma_2502)
 
 # Try Live Bot (now offline)
 Bot link -https://t.me/advance_content_saver_bot
 
-### A stable telegram bot to get restricted messages with custom thumbnail support , made by [TEAM SPY](https://t.me/dev_gagan) This bot can run in channels directly (in this case custom thumbnail not supported)
+### A stable telegram bot to get restricted messages with custom thumbnail support , made by [Saurav](https://t.me/aatma_2502) This bot can run in channels directly (in this case custom thumbnail not supported)
 
 - works for both public and private chats
 - Custom thumbnail support for Pvt medias
@@ -34,7 +34,7 @@ API: [Telegram.org](https://my.telegram.org/auth)
 
 PYROGRAM SESSION: Search for it ... Make sure the source be trusted otherwise it will lead to accound delete or ban
 
-# How to get vars - [TEAM SPY](https://t.me/dev_gagan)
+# How to get vars - [Saurav](https://t.me/aatma_2502)
 
 BOT TOKEN: @Botfather on telegram
 
@@ -42,7 +42,7 @@ AUTH: Go to @missrose_bot, start and send /info to get your id
 
 FORCESUB: Before starting building bots create a public channel and get the username withou '@'
 
-# Deploying Guide - [TEAM SPY](https://t.me/dev_gagan)
+# Deploying Guide - [Saurav](https://t.me/aatma_2502)
 
 ## Deploy on `VPS`
 
@@ -72,9 +72,9 @@ pip3 install -r requirements.txt
 python3 -m main
 ```
 
-- if you want bot to be running in background then enter `screen -S gagan` before `python3 -m main` 
+- if you want bot to be running in background then enter `screen -S saurav` before `python3 -m main` 
 - after `python3 -m main`, click `ctrl+A`, `ctrl+D`
-- if you want to stop bot, then enter `screen -r gagan` and to kill screen enter `screen -S gagan -X quit`.
+- if you want to stop bot, then enter `screen -r saurav` and to kill screen enter `screen -S saurav -X quit`.
 
 
 ## Deploy your bot on `heroku`
@@ -93,13 +93,13 @@ python3 -m main
 - connect to github and deploy
 - turn on dynos
 
-# Editing Repo - [TEAM SPY](https://t.me/dev_gagan)
+# Editing Repo - [Saurav](https://t.me/aatma_2502)
 
 You can freely edit repo the customisation you can do is -
 - Change command pattern like `/batch` to other name (edit this in ```main/plugins/batch.py```) by searching and replacing `/batch` to desired command.
 - Adding Custom Text in caption (edit this in ```main/plugins/pyroplug.py```) search for 
 ```
-caption = f"{msg.caption}\n\n__Unrestricted by **[Team SPY](https://t.me/dev_gagan)**__" if msg.caption else "__Unrestricted by **[Team SPY](https://t.me/dev_gagan)**__"
+caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
 ``` 
 change accordingly within ```f""```
 
@@ -107,7 +107,7 @@ change accordingly within ```f""```
 - Change Default thumbnail in main directory there is file named ```thumb.jpg``` remove that and upload your custom ```thumb.jpg```
 - Change cancel command (edit this also in ```batch.py```) search for ```/cancel``` and then change the command accordingly
 
-# Commands Available in Bot - [TEAM SPY](https://t.me/dev_gagan)
+# Commands Available in Bot - [Saurav](https://t.me/aatma_2502)
 
 - ```/start``` - to start the bot
 - ```/batch``` - to download the files in range/bulk by giving one post link and range value

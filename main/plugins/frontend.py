@@ -1,11 +1,11 @@
-#Developer : Gagan 
+#Developer : saurav 
 
 
 import time, os
 
 import logging
 import json
-from .. import bot as gagan
+from .. import bot as saurav
 from .. import userbot, Bot
 from .. import FORCESUB as fs
 from main.plugins.pyroplug import get_msg
@@ -32,7 +32,7 @@ timer=[]
 user=[]
 
 
-@gagan.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
+@saurav.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
 async def clone(event):
     logging.info(event)
     file_name = ''
@@ -96,11 +96,11 @@ async def clone(event):
                 m = msg_id
                 await get_msg(userbot, Bot, event.sender_id, edit.id, link, m, file_name)
         except FloodWait as fw:
-            await gagan.send_message(event.sender_id, f'Try again after {fw.value} seconds due to floodwait from telegram.')
+            await saurav.send_message(event.sender_id, f'Try again after {fw.value} seconds due to floodwait from telegram.')
             await edit.delete()
         except Exception as e:
             logging.info(e)
-            await gagan.send_message(event.sender_id, f"An error occurred during cloning of `{link}`\n\n**Error:** {str(e)}")
+            await saurav.send_message(event.sender_id, f"An error occurred during cloning of `{link}`\n\n**Error:** {str(e)}")
             await edit.delete()
         ind = user.index(f'{int(event.sender_id)}')
         user.pop(int(ind))

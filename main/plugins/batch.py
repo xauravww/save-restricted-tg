@@ -1,10 +1,10 @@
-#Join t.me/dev_gagan
+#Join t.me/aatma_2502
 
 import logging
 import time, os, asyncio
 import json
 
-from .. import bot as gagan
+from .. import bot as saurav
 from .. import userbot, Bot, AUTH, SUDO_USERS
 
 from main.plugins.pyroplug import check, get_bulk_msg
@@ -31,12 +31,12 @@ ids = []
     await event.client.send_message(event.chat_id, msg) 
 '''
 
-@gagan.on(events.NewMessage(incoming=True, pattern='/batch'))
+@saurav.on(events.NewMessage(incoming=True, pattern='/batch'))
 async def _batch(event):
     s = False
     if f'{event.sender_id}' in batch:
         return await event.reply("You've already started one batch, wait for it to complete you dumbfuck owner!")
-    async with gagan.conversation(event.chat_id) as conv: 
+    async with saurav.conversation(event.chat_id) as conv: 
         if not s:
             await conv.send_message(f"Send me the message link you want to start saving from, as a reply to this message.", buttons=Button.force_reply())
             try:
@@ -70,7 +70,7 @@ async def _batch(event):
                 return
             batch.append(f'{event.sender_id}')
             cd = await conv.send_message("**Batch process ongoing...**\n\nProcess completed: ", 
-                                    buttons=[[Button.url("Join Channel", url="http://t.me/dev_gagan")]])
+                                    buttons=[[Button.url("Join Channel", url="http://t.me/aboutsaurav")]])
             co = await run_batch(userbot, Bot, event.sender_id, cd, _link) 
             try: 
                 if co == -2:
@@ -82,10 +82,11 @@ async def _batch(event):
             ids.clear()
             batch.clear()
 
-@gagan.on(events.callbackquery.CallbackQuery(data="cancel"))
+@saurav.on(events.callbackquery.CallbackQuery(data="cancel"))
 async def cancel(event):
     ids.clear()
     batch.clear()
+    await event.answer("Batch process cancelled.")
 
     
 async def run_batch(userbot, client, sender, countdown, link):
@@ -122,7 +123,7 @@ async def run_batch(userbot, client, sender, countdown, link):
             await get_bulk_msg(userbot, client, sender, link, integer)
             protection = await client.send_message(sender, f"Sleeping for `{timer}` seconds to avoid Floodwaits and Protect account!")
             await countdown.edit(count_down, 
-                                 buttons=[[Button.url("Join Channel", url="https://t.me/dev_gagan")]])
+                                 buttons=[[Button.url("Join Channel", url="https://t.me/aboutsaurav")]])
             await asyncio.sleep(timer)
             await protection.delete()
         except IndexError as ie:
@@ -145,32 +146,32 @@ async def run_batch(userbot, client, sender, countdown, link):
                     #print(e)
                     logger.info(e)
                     if countdown.text != count_down:
-                        await countdown.edit(count_down, buttons=[[Button.url("Join Channel", url="http://t.me/dev_gagan")]])
+                        await countdown.edit(count_down, buttons=[[Button.url("Join Channel", url="http://t.me/aboutsaurav")]])
         except Exception as e:
             #print(e)
             logger.info(e)
             await client.send_message(sender, f"An error occurred during cloning, batch will continue.\n\n**Error:** {str(e)}")
             if countdown.text != count_down:
-                await countdown.edit(count_down, buttons=[[Button.url("Join Channel", url="https://t.me/dev_gagan")]])
+                await countdown.edit(count_down, buttons=[[Button.url("Join Channel", url="https://t.me/aatma_2502")]])
         n = i + 1
         if n == len(ids):
             return -2
 
 C = "/cancel"
 START_PIC = "https://graph.org/file/da97ceca70e55983b4891.png"
-TEXT = "👋 Hi, This is 'Paid Restricted Content Saver' bot Made with ❤️ by __**Team SPY**__."
+TEXT = "👋 Hi, This is 'Paid Restricted Content Saver' bot Made with ❤️ by __**Saurav**__."
 
-@gagan.on(events.NewMessage(pattern=f"^{C}"))
+@saurav.on(events.NewMessage(pattern=f"^{C}"))
 async def start_command(event):
     # Creating inline keyboard with buttons
     buttons = [
-        [Button.inline("Cancel", data="cancel"),
+        [
          Button.inline("Cancel", data="cancel")],
-        [Button.url("Join Channel", url="https://telegram.dog/dev_gagan")]
+        [Button.url("Join Channel", url="https://telegram.dog/aboutsaurav")]
     ]
 
     # Sending photo with caption and buttons
-    await gagan.send_file(
+    await saurav.send_file(
         event.chat_id,
         file=START_PIC,
         caption=TEXT,
@@ -181,7 +182,7 @@ TEXTING = """
 ```
 Execute /batch command only when you 100% sure.
 Bcz /cancel event is removed to make bot work perfectly.
-Thanks - Team SPY
+Thanks - Saurav
 
 ```
 """
