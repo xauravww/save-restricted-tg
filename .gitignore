@@ -1,0 +1,7 @@
+.env
+*.pyc
+bot.session
+SaveRestricted.session
+SaveRestricted.session-journal
+SaveRestricted.session-session
+SaveRestricted.session-journal
