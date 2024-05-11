@@ -5,3 +5,5 @@ SaveRestricted.session
 SaveRestricted.session-journal
 SaveRestricted.session-session
 SaveRestricted.session-journal
+bot.session-journal
+*.mp4

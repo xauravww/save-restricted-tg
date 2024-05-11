@@ -23,4 +23,4 @@ def hit_server_url():
 while True:
     hit_server_url()
     # Sleep for a specified duration before hitting the server URL again
-    time.sleep(5)  # Sleep for 13 minutes
+    time.sleep(13 * 60)  # Sleep for 13 minutes
