@@ -20,7 +20,7 @@ def hit_server_url():
         print("Server URL not found in .env file.")
 
 # Continuous execution of the function
-while True:
-    hit_server_url()
-    # Sleep for a specified duration before hitting the server URL again
-    time.sleep(13 * 60)  # Sleep for 13 minutes
+# while True:
+#     hit_server_url()
+#     # Sleep for a specified duration before hitting the server URL again
+#     time.sleep(13 * 60)  # Sleep for 13 minutes
