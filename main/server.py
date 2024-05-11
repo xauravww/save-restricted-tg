@@ -25,4 +25,4 @@ def server():
     port = int(os.getenv("PORT", 5000))
 
     # Run the Flask app on specified port
-    app.run(port=port)
+    app.run(host="0.0.0.0" , port=port)

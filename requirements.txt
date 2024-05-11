@@ -11,3 +11,4 @@ requests
 speedtest-cli
 flask
 python-dotenv
+schedule
