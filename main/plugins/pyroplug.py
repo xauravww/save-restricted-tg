@@ -257,6 +257,7 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
                     thumb_path = None
                 
                 caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
+                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
                 await send_video_with_chat_id(client, sender, path, caption, duration, hi, wi, thumb_path, upm)
             elif str(file).split(".")[-1] in ['jpg', 'jpeg', 'png', 'webp']:
                 if file_n != '':
@@ -271,6 +272,7 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
 
                 
                 caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
+                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
                 await upm.edit("__Uploading photo...__")
 
                 await bot.send_file(sender, path, caption=caption)
@@ -287,6 +289,7 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
                 thumb_path=thumbnail(sender)
                 
                 caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
+                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
                 await send_document_with_chat_id(client, sender, path, caption, thumb_path, upm)
             os.remove(file)
             await upm.delete()
