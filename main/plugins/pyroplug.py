@@ -144,8 +144,6 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
         await client.edit_message_text(sender, edit_id, "**Invalid Link!**")
         return None
     if 't.me/c/'  in msg_link or 't.me/b/' in msg_link:
-        
-
         if "t.me/b" not in msg_link:    
             chat = int('-100' + str(msg_link.split("/")[-2]))
         else:
@@ -154,29 +152,31 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
         try:
             msg = await userbot.get_messages(chat_id = chat, message_ids = msg_id)
             logging.info(msg)
-           # medi =  msg.document or msg.video or msg.audio or None
+
+            # Optional chaining for caption
+            caption = getattr(msg, 'caption', None) or getattr(msg.document, 'file_name', None) or getattr(msg.video, 'file_name', None) or ""
+
+            # Rest of your code
             if msg.service is not None:
                 await client.delete_messages(
                     chat_id=sender,
                     message_ids=edit_id
                 )
-                #await client.edit_message_text(sender, edit_id, f"{msg.service}")
                 return None
             if msg.empty is not None:
                 await client.delete_messages(
                     chat_id=sender,
                     message_ids=edit_id
                 )
-                #await client.edit_message_text(sender, edit_id, f"message dosnt exist \n{msg.empty}")
                 return None            
             
-            if msg.media and msg.media==MessageMediaType.WEB_PAGE:
+            if msg.media and msg.media == MessageMediaType.WEB_PAGE:
                 a = b = True
                 edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-                if '--'  in msg.text.html or '**' in msg.text.html or '__' in msg.text.html or '~~' in msg.text.html or '||' in msg.text.html or '```' in msg.text.html or '`' in msg.text.html:
+                if '--' in msg.text.html or '**' in msg.text.html or '__' in msg.text.html or '~~' in msg.text.html or '||' in msg.text.html or '```' in msg.text.html or '`' in msg.text.html:
                     await send_message_with_chat_id(client, sender, msg.text.html, parse_mode=ParseMode.HTML)
                     a = False
-                if '<b>' in msg.text.markdown or '<i>' in msg.text.markdown or '<em>' in msg.text.markdown  or '<u>' in msg.text.markdown or '<s>' in msg.text.markdown or '<spoiler>' in msg.text.markdown or '<a href=>' in msg.text.markdown or '<pre' in msg.text.markdown or '<code>' in msg.text.markdown or '<emoji' in msg.text.markdown:
+                if '<b>' in msg.text.markdown or '<i>' in msg.text.markdown or '<em>' in msg.text.markdown or '<u>' in msg.text.markdown or '<s>' in msg.text.markdown or '<spoiler>' in msg.text.markdown or '<a href=>' in msg.text.markdown or '<pre' in msg.text.markdown or '<code>' in msg.text.markdown or '<emoji' in msg.text.markdown:
                     await send_message_with_chat_id(client, sender, msg.text.markdown, parse_mode=ParseMode.MARKDOWN)
                     b = False
                 if a and b:
@@ -186,27 +186,18 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
             if not msg.media and msg.text:
                 a = b = True
                 edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-                if '--'  in msg.text.html or '**' in msg.text.html or '__' in msg.text.html or '~~' in msg.text.html or '||' in msg.text.html or '```' in msg.text.html or '`' in msg.text.html:
+                if '--' in msg.text.html or '**' in msg.text.html or '__' in msg.text.html or '~~' in msg.text.html or '||' in msg.text.html or '```' in msg.text.html or '`' in msg.text.html:
                     await send_message_with_chat_id(client, sender, msg.text.html, parse_mode=ParseMode.HTML)
                     a = False
-                if '<b>' in msg.text.markdown or '<i>' in msg.text.markdown or '<em>' in msg.text.markdown  or '<u>' in msg.text.markdown or '<s>' in msg.text.markdown or '<spoiler>' in msg.text.markdown or '<a href=>' in msg.text.markdown or '<pre' in msg.text.markdown or '<code>' in msg.text.markdown or '<emoji' in msg.text.markdown:
+                if '<b>' in msg.text.markdown or '<i>' in msg.text.markdown or '<em>' in msg.text.markdown or '<u>' in msg.text.markdown or '<s>' in msg.text.markdown or '<spoiler>' in msg.text.markdown or '<a href=>' in msg.text.markdown or '<pre' in msg.text.markdown or '<code>' in msg.text.markdown or '<emoji' in msg.text.markdown:
                     await send_message_with_chat_id(client, sender, msg.text.markdown, parse_mode=ParseMode.MARKDOWN)
                     b = False
                 if a and b:
                     await send_message_with_chat_id(client, sender, msg.text.markdown, parse_mode=ParseMode.MARKDOWN)
-                
-                '''await client.send_message(sender, msg.text.html, parse_mode = 'html')
-                   await client.send_message(sender, msg.text.html, parse_mode = 'md')
-                   await client.send_message(sender, msg.text.markdown, parse_mode = 'html')
-                   await client.send_message(sender, msg.text.markdown, parse_mode = 'md')
-                   await client.send_message(sender, msg.text.markdown)
-                '''
                 await edit.delete()
                 return None
-            if msg.media==MessageMediaType.POLL:
-                #await client.send_message(sender,'poll media cant be saved')
+            if msg.media == MessageMediaType.POLL:
                 await client.edit_message_text(sender, edit_id, 'poll media cant be saved')
-                #await edit.delete()
                 return 
             edit = await client.edit_message_text(sender, edit_id, "Trying to Download.")
             
@@ -225,9 +216,6 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
             await edit.delete()
             upm = await client.send_message(sender, '__Preparing to Upload!__')
             
-            caption = str(file)
-            if msg.caption is not None:
-                caption = msg.caption
             if str(file).split(".")[-1] in ['mkv', 'mp4', 'webm', 'mpe4', 'mpeg', 'ts', 'avi', 'flv', 'org']:
                 if str(file).split(".")[-1] in ['webm', 'mkv', 'mpe4', 'mpeg', 'ts', 'avi', 'flv', 'org']:
                     path = str(file).split(".")[0] + ".mp4"
@@ -240,56 +228,41 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
                 logging.info(data)
 
                 if file_n != '':
-                    #path = ''
                     if '.' in file_n:
-                        
                         path = f'/app/downloads/{file_n}'
                     else:
-                        
                         path = f'/app/downloads/{file_n}.' + str(file).split(".")[-1]
-
                     os.rename(file, path)
                     file = path
                 try:
-                    thumb_path =thumbnail(sender)
+                    thumb_path = thumbnail(sender)
                 except Exception as e:
                     logging.info(e)
                     thumb_path = None
                 
-                caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
-                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
+                caption = f"{caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
                 await send_video_with_chat_id(client, sender, path, caption, duration, hi, wi, thumb_path, upm)
             elif str(file).split(".")[-1] in ['jpg', 'jpeg', 'png', 'webp']:
                 if file_n != '':
-                    #path = ''
                     if '.' in file_n:
                         path = f'/app/downloads/{file_n}'
                     else:
                         path = f'/app/downloads/{file_n}.' + str(file).split(".")[-1]
-
                     os.rename(file, path)
                     file = path
-
-                
-                caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
-                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
+                caption = f"{caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
                 await upm.edit("__Uploading photo...__")
-
                 await bot.send_file(sender, path, caption=caption)
             else:
                 if file_n != '':
-                    #path = ''
                     if '.' in file_n:
                         path = f'/app/downloads/{file_n}'
                     else:
                         path = f'/app/downloads/{file_n}.' + str(file).split(".")[-1]
-
                     os.rename(file, path)
                     file = path
-                thumb_path=thumbnail(sender)
-                
-                caption = f"{msg.caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.caption else "__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
-                caption = f"{msg.document.file_name} \n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__" if msg.document.file_name else caption
+                thumb_path = thumbnail(sender)
+                caption = f"{caption}\n\n__Unrestricted by **[Saurav](https://t.me/aatma_2502)**__"
                 await send_document_with_chat_id(client, sender, path, caption, thumb_path, upm)
             os.remove(file)
             await upm.delete()
@@ -299,11 +272,11 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i, file_n):
             return None
     else:
         edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-        chat =  msg_link.split("/")[-2]
+        chat = msg_link.split("/")[-2]
         await copy_message_with_chat_id(client, sender, chat, msg_id)
         await edit.delete()
-        return None   
- 
+        return None
+
 async def get_bulk_msg(userbot, client, sender, msg_link, i):
     x = await client.send_message(sender, "Processing!")
     file_name = ''
